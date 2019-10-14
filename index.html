@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 天气测试</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <style>
+        #app {
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ul,
+        li {
+            list-style: none;
+            float: left;
+        }
+
+        a {
+            text-decoration: none;
+            color: cadetblue;
+            cursor: pointer;
+        }
+
+        html,
+        body {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .header {
+            margin: 0;
+            padding: 0;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid darkgoldenrod;
+        }
+
+        .header_position {
+            height: 50px;
+            display: flex;
+            font-size: 1.5rem;
+            align-items: center;
+            padding-left: 10px;
+            flex-direction: row;
+        }
+
+        .header_other {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            font-size: 1.1rem;
+        }
+
+        .header_other li {
+            margin: 0 10px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .content_t {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid red;
+            align-items: center;
+        }
+
+        .content_t_l {
+            font-size: 90pt;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .content_t_r {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content_t_r_t {
+            font-size: 30px;
+        }
+
+        .content_t_r_b {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+        }
+
+        .content_t_r_b p {
+            margin-right: 15px;
+        }
+
+        .content_c {
+            font-size: 20px;
+        }
+
+        .content_c p {
+            margin: 5px 0;
+        }
+
+        .content_b {
+            display: flex;
+            flex-direction: row;
+            font-size: 17px;
+        }
+
+        .content_b p {
+            margin-right: 10px;
+        }
+
+        .time {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .time_t {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .time_t_l {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .time_t_l p {
+            margin-right: 10px;
+        }
+
+        .time_t_r {
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="header_position">
+                <p>{{msg.city}}</p>
+            </div>
+            <div class="header_other">
+                <ul>
+                    <li>
+                        <a href="#">设置</a>
+                    </li>
+                    <li>
+                        <a href="#">分享</a>
+                    </li>
+                    <li>
+                        <a href="#">城市</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content_t">
+                <div class="content_t_l">{{msg.tem}}</div>
+                <div class="content_t_r">
+                    <div class="content_t_r_t">℃</div>
+                    <div class="content_t_r_b">
+                        <p>
+                            <a href="#">反馈</a>
+                        </p>
+                        <div>
+                            <a href="#">●{{msg.win}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_c">
+                <p>{{msg.weather}}</p>
+                <p>空气质量描述:</p>
+                <p style="font-size: 0.8rem;">{{msg.air_tips}}</p>
+            </div>
+            <div class="content_b">
+                <p>空气</p>
+                <p>
+                    <a href="#">{{msg.air}} ></a>
+                </p>
+                <p>空气质量等级:{{msg.air_level}}</p>
+            </div>
+            
+        </div>
+        <div class="time">
+            <div class="time_t">
+                <div class="time_t_l">
+                    <p>{{msg.week}}</p>
+                    <p>{{sl[0].tem1}}/{{sl[0].tem2}}</p>
+                </div>
+                <div class="time_t_r">
+                    <p>{{msg.time}} 发布</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: '',
+                    sl: ''
+                },
+
+                mounted: function () {
+                    this.get();
+                },
+                methods: {
+                    get: function () {
+                        //发送请求
+                        this.$http.get('http://hd215.api.yesapi.cn/?s=App.Common_Weather.LiveWeather&app_key=34B1D06BAE79A4B68E2F26B68AD59273&city=历下').then(function (res) {
+                            this.msg = res.body.data.weather;
+                            msg = this.msg;
+                            //console.log(msg);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                        this.$http.get('http://hd215.api.yesapi.cn/?s=App.Common_Weather.WeekWeather&app_key=34B1D06BAE79A4B68E2F26B68AD59273&city=历下').then(function (res) {
+                            this.sl = res.body.data.weather;
+                            sl = this.sl;
+                            //console.log(sl[0]);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+
+                    }
+                }
+            });
+        }
+    </script>
