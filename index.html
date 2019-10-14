@@ -27,8 +27,8 @@
 
         html,
         body {
-            padding-left: 5px;
-            padding-right: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
         }
 
         .header {
@@ -146,7 +146,7 @@
     <div id="app">
         <div class="header">
             <div class="header_position">
-                <p>{{msg.city}}</p>
+                <p>当前定位: {{msg.city}}</p>
             </div>
             <div class="header_other">
                 <ul>
@@ -210,7 +210,9 @@
                 el: '#app',
                 data: {
                     msg: '',
-                    sl: ''
+                    sl: '',
+                    tem1:'',
+                    tem2:''
                 },
 
                 mounted: function () {
@@ -218,6 +220,8 @@
                 },
                 methods: {
                     get: function () {
+                        var tem1 = 0;
+                        var tem2;
                         //发送请求
                         this.$http.get('http://hd215.api.yesapi.cn/?s=App.Common_Weather.LiveWeather&app_key=34B1D06BAE79A4B68E2F26B68AD59273&city=历下').then(function (res) {
                             this.msg = res.body.data.weather;
