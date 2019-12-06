@@ -24,7 +24,9 @@
             color: cadetblue;
             cursor: pointer;
         }
-
+         [v-cloak]{
+               display: none;
+         }
         html,
         body {
             padding-left: 25px;
@@ -144,9 +146,9 @@
 
 <body>
     <div id="app">
-        <div class="header">
+        <div class="header" v-cloak>
             <div class="header_position">
-                <p>当前定位: {{msg.city}}</p>
+                <p v-cloak>当前定位: {{msg.city}}</p>
             </div>
             <div class="header_other">
                 <ul>
@@ -163,26 +165,26 @@
             </div>
         </div>
         <div class="content">
-            <div class="content_t">
-                <div class="content_t_l">{{msg.tem}}</div>
+            <div class="content_t" v-cloak>
+                <div v-cloak class="content_t_l">{{msg.tem}}</div>
                 <div class="content_t_r">
                     <div class="content_t_r_t">℃</div>
                     <div class="content_t_r_b">
                         <p>
                             <a href="#">反馈</a>
                         </p>
-                        <div>
+                        <div v-cloak>
                             <a href="#">●{{msg.win}}</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="content_c">
+            <div class="content_c" v-cloak>
                 <p>{{msg.weather}}</p>
                 <p>空气质量描述:</p>
                 <p style="font-size: 0.8rem;">{{msg.air_tips}}</p>
             </div>
-            <div class="content_b">
+            <div class="content_b" v-cloak>
                 <p>空气</p>
                 <p>
                     <a href="#">{{msg.air}} ></a>
@@ -191,7 +193,7 @@
             </div>
             
         </div>
-        <div class="time">
+        <div class="time" v-cloak>
             <div class="time_t">
                 <div class="time_t_l">
                     <p>{{msg.week}}</p>
