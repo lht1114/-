@@ -225,14 +225,14 @@
                         var tem1 = 0;
                         var tem2;
                         //发送请求
-                        this.$http.get('https://hd216.api.yesapi.cn/?s=App.Common_Weather.LiveWeather&app_key=2E61EA946BB173A060749F5FD1D7D3CA&city=济南').then(function (res) {
+                        this.$http.get('https://hn216.api.yesapi.cn/?s=App.Common_Weather.LiveWeather&app_key=2E61EA946BB173A060749F5FD1D7D3CA&city=济南').then(function (res) {
                             this.msg = res.body.data.weather;
                             msg = this.msg;
                             //console.log(msg);
                         }, function () {
                             console.log('请求失败处理');
                         });
-                        this.$http.get('https://hd216.api.yesapi.cn/?s=App.Common_Weather.WeekWeather&app_key=2E61EA946BB173A060749F5FD1D7D3CA&city=济南').then(function (res) {
+                        this.$http.get('https://hn216.api.yesapi.cn/?s=App.Common_Weather.WeekWeather&app_key=2E61EA946BB173A060749F5FD1D7D3CA&city=济南').then(function (res) {
                             this.sl = res.body.data.weather;
                             sl = this.sl;
                             //console.log(sl[0]);
